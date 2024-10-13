@@ -1,15 +1,19 @@
+# 🔗 Enlace a los Hitos 🔗
+
+[Hito 1](/hito1/)
+[Hito 2](/hito2/)
+[Hito 3](/hito3/)
+[Hito 4](/hito4/)
+[Hito 5](/hito5/)
+
+
 # 🎞️ MovieBuster 🎞️
 
-MovieBuster es una aplicación para compartir experiencia de ver una película, ya sea en el cine o en casa con amigos. Con ella, se puede consultar la cartelera de los cines cercanos y crear fácilmente grupos para planear una salida o una noche de pelis en casa.
+MovieBuster es una aplicación móvil para compartir la experiencia de ver películas, ya sea en el cine o en casa con amigos. La idea es simple: conectar a personas que disfrutan del cine y facilitar la organización de planes, ya sea una salida al cine o una sesión de películas en casa.
 
-## ⚙️ Funcionalidades de la Aplicación ⚙️
+Con MovieBuster se puede:
 
-1. Poder encontrar los cines cercanos, con su cartelera y horarios.
-2. Los cines pueden incluir y eliminar películas de su cartelera, así como editar los horarios de las que estén actualmente
-3. Organización de grupos con amigos, ya sea para ir al cine o para ver una película en casa de alguien.
-
-## 👨‍💻 Tecnologías 👨‍💻
-
-La aplicación móvil será desarrollada utilizando Python como lenguaje principal, con el framework Flask para gestionar el backend. Flask se utilizará para simplificar la creación de una API que se encargará de atender las solicitudes de los usuarios y los administradores de los cines. 
-
-Para almacenar los datos, se utilizará MongoDB, que es una base de datos NoSQL que trabaja con documentos en formato JSON. Para la comunicación con la API esta estructura de datos es la adecuada.
+**Consultar la cartelera de los cines**: La app muestra las películas en exhibición de los cines registrados, junto con horarios, sinopsis, géneros y duración.
+**Crear grupos para planear salidas al cine**: Se podrá crear grupos e invitar a contactos o unirte a otros grupos que ya estén organizando una salida para ir a ver una película.
+**Organizar noches de cine en casa**: Para aquellas personas que prefieren ver una película en casa, MovieBuster permite crear eventos para ver películas en casa de alguien.
+**Gestionar tus quedadas y preferencias**: Además de consultar la cartelera y organizar quedadas, la app permitirá llevar un control de las películas que ya vistas y los eventos a los que estás invitado o en los cuales se haya participado. 
