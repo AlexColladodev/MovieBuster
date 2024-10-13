@@ -1,4 +1,4 @@
-# ℹ️ Descripción de la Aplicaciónℹ ℹ️
+# ℹ️ Descripción de la Aplicación ℹ️
 
 Como se ha descrito en el [README](../README.md), se desarrollará una aplicación móvil pensada para los amantes del cine, que les permitirá conectar con otros que comparten sus mismos gustos en géneros cinematográficos. Podrán organizarse para ver películas tanto en el cine como en casa, convirtiendo la app en una red social perfecta para quienes disfrutan de la compañía al ver una buena película.
 
