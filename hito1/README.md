@@ -46,3 +46,8 @@ Luego de tener el repositorio creado en github, habrá que conectarlo con nuestr
 Una vez configurado el entorno en mi directorio local, ya puedo hacer git push para actualizar el repositorio en GitHub.
 
 ![image](https://github.com/user-attachments/assets/6d0b4d70-72d3-41f8-8529-10a8a3f52371)
+
+Por último, se ha configurado el factor de doble autentificación para la cuenta de github.
+
+![image](https://github.com/user-attachments/assets/bbb70e8e-7475-4e24-8d37-87fea7ff79b0)
+
