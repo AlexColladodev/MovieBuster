@@ -35,3 +35,10 @@ Para almacenar los datos, se utilizará MongoDB, que es una base de datos NoSQL 
 
 Por parte del frontend, se intentará realizar una interfaz utilizando React Native.
 
+## ⚙️ Configuración del Entorno ⚙️
+
+Antes que nada, hay que crear el repositorio a utilizar en github utilizando el tutorial de github de [Inicio Rápido de Repositorios](https://docs.github.com/es/repositories/creating-and-managing-repositories/quickstart-for-repositories).
+
+Luego de tener el repositorio creado en github, habrá que conectarlo con nuestro ordenador, abriendo el [Git Bash](https://git-scm.com) y enlazando mi entorno local con el repositorio de github siguiendo los pasos de: [Conectar carpeta local con repositorio de github](https://juancadh.medium.com/conectar-carpeta-local-con-repositorio-de-github-8d983798998e)
+
+![Imagen Entorno Github](Entorno%20Github.png.png)
