@@ -42,3 +42,7 @@ Antes que nada, hay que crear el repositorio a utilizar en github utilizando el 
 Luego de tener el repositorio creado en github, habrá que conectarlo con nuestro ordenador, abriendo el [Git Bash](https://git-scm.com) y enlazando mi entorno local con el repositorio de github siguiendo los pasos de: [Conectar carpeta local con repositorio de github](https://juancadh.medium.com/conectar-carpeta-local-con-repositorio-de-github-8d983798998e)
 
 ![image](https://github.com/user-attachments/assets/2b73d28a-fd32-40b2-ab72-36c8cb402baf)
+
+Una vez configurado el entorno en mi directorio local, ya puedo hacer git push para actualizar el repositorio en GitHub.
+
+![image](https://github.com/user-attachments/assets/6d0b4d70-72d3-41f8-8529-10a8a3f52371)
