@@ -49,4 +49,4 @@ class CinesSchema(Schema):
         validate=[validar_existencia_id],
         error_messages={"required": "No existe este administrador"}
     )
-    reviews = fields.List(fields.Str(), required=False, missing=[])
+    peliculas = fields.List(fields.Str(), required=False, missing=[])

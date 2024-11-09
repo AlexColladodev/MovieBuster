@@ -115,3 +115,14 @@ class UsuarioGenerico:
                 return None
         except Exception as e:
             raise RuntimeError(f"Error en la base de datos al consultar nombre de usuario: {e}")
+
+    @staticmethod
+    def invita_actividad(id_usuario, id_actividad):
+        try:
+            mongo.db.actividades.update_one(
+                {"_id": ObjectId(id_actividad)},
+                {"$addToSet": {"participantes": id_usuario}}
+            )
+            return {"message": "Actividad añadida con éxito al usuario"}
+        except PyMongoError as e:
+            raise RuntimeError(f"Error en la base de datos al asociar usuario-actividad: {e}")

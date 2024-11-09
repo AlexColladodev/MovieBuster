@@ -27,7 +27,6 @@ class AdministradorCine:
         except PyMongoError as e:
             raise RuntimeError(f"Error en la base de datos al crear un administrador: {e}")
 
-    @staticmethod
     def eliminar_administrador_cine(id):
         try:
             administrador_a_eliminar = mongo.db.administradores_cines.find_one({"_id": ObjectId(id)})
@@ -40,7 +39,6 @@ class AdministradorCine:
         except PyMongoError as e:
             raise RuntimeError(f"Error en la base de datos al eliminar a un administrador: {e}")
     
-    @staticmethod
     def consultar_administradores_cines():
         try:
             administradores_cines = mongo.db.administradores_cines.find()
@@ -48,7 +46,6 @@ class AdministradorCine:
         except PyMongoError as e:
             raise RuntimeError(f"Error de base de datos al consultar administradores_cines genericos de establecimientos: {e}")
     
-    @staticmethod
     def consultar_administrador(id):
         try:
             
@@ -68,7 +65,6 @@ class AdministradorCine:
         except PyMongoError as e:
             raise RuntimeError(f"Error en la base de datos al consultar al administrador: {e}")
         
-    @staticmethod
     def actualizar_administrador(id, data):
         try:
             if not ObjectId.is_valid(id):
@@ -86,19 +82,6 @@ class AdministradorCine:
         except PyMongoError as e:
             raise RuntimeError(f"Error en la base de datos al actualizar al administrador: {e}")
 
-    @classmethod
     def correo_es_valido(cls, email):
         patron = r'\w+@\w+\.\w+'
         return re.match(patron, email) is not None
-
-    @classmethod
-    def existe_nombre_administrador(cls, nombre):
-        try:
-            administrador = mongo.db.administradores_cines.find_one({"nombre_administrador": nombre})
-            if administrador:
-                id_administrador = str(administrador.get("_id"))
-                return id_administrador
-            else:
-                return None
-        except Exception as e:
-            raise RuntimeError(f"Error en la base de datos al consultar nombre de administrador: {e}")

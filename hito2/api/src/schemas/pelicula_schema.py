@@ -40,3 +40,9 @@ class PeliculaSchema(Schema):
         required=True,
         error_messages={"required": "Fecha y hora son requeridos"}
     )
+    genero = fields.List(
+        fields.Str(),
+        required=True,
+        error_messages={"required": "Genero sin rellenar"}
+    )
+    reviews = fields.List(fields.Str(), required=False, missing=[])

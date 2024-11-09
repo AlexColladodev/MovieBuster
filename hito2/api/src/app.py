@@ -4,7 +4,7 @@ from werkzeug.security import check_password_hash
 from flask_restx import Api
 from flask_cors import CORS
 from db import init_mongo, mongo
-from services import usuario_generico_service, administrador_cine_service, cine_service, pelicula_service, actividad_service
+from services import usuario_generico_service, administrador_cine_service, cine_service, pelicula_service, actividad_service, review_service
 from flask_swagger_ui import get_swaggerui_blueprint
 
 app = Flask(__name__)
@@ -23,6 +23,7 @@ app.register_blueprint(administrador_cine_service.blueprint)
 app.register_blueprint(cine_service.blueprint)
 app.register_blueprint(pelicula_service.blueprint)
 app.register_blueprint(actividad_service.blueprint)
+app.register_blueprint(review_service.blueprint)
 
 SWAGGER_URL = '/swagger'
 API_URL = '/static/openapi.yaml'

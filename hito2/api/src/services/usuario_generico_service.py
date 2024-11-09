@@ -73,3 +73,18 @@ def actualizar_usuario(id):
         return jsonify({"error": str(e)}), 500
     except Exception as e:
         return jsonify({"error": f"Error inesperado: {e}"}), 500
+
+@blueprint.route("/invita_actividad", methods=["POST"])
+def invita_actividad():
+    data = request.json
+    id_actividad = data.get("id_actividad")
+    id = data.get("id_usuario")
+
+    print(data)
+    try:
+        respuesta = UsuarioGenerico.invita_actividad(id, id_actividad)
+        return respuesta, 200
+    except RuntimeError as e:
+        return jsonify({"error": str(e)}), 500
+    except Exception as e:
+        return jsonify({"error": f"Error inesperado: {e}"}), 500

@@ -57,16 +57,3 @@ def consultar_administrador_cine(id):
     except Exception as e:
         return jsonify({"error": f"Error inesperado al consultar administrador de cine: {e}"}), 500
 
-@blueprint.route("", methods=["PUT"])
-def actualizar_administrador_cine():
-    data = request.json
-    admin = get_jwt_identity()
-    id = str(admin.get("_id"))
-
-    try:
-        respuesta = AdministradorCine.actualizar_administrador(id, data)
-        return jsonify(respuesta), 200
-    except RuntimeError as e:
-        return jsonify({"error": str(e)}), 500
-    except Exception as e:
-        return jsonify({"error": f"Error inesperado al modificar administrador de cine: {e}"}), 500

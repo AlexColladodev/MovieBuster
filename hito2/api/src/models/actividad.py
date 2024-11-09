@@ -59,20 +59,11 @@ class Actividad:
             if not actividad:
                 raise ValueError("Actividad no encontrada")
             participantes_ids = actividad.get("participantes", [])
-            perfil_participantes = []
             for pid in participantes_ids:
                 participante = mongo.db.usuarios_genericos.find_one(
                     {"_id": ObjectId(pid)},
                     {"nombre": 1, "nombre_usuario": 1, "fecha_nac": 1, "preferencias": 1, "imagen_url": 1}
                 )
-                if participante:
-                    perfil_participantes.append({
-                        "nombre_usuario": participante.get("nombre_usuario", "Usuario no encontrado"),
-                        "nombre": participante.get("nombre"),
-                        "fecha_nac": participante.get("fecha_nac"),
-                        "preferencias": participante.get("preferencias")
-                    })
-            actividad["perfil_participantes"] = perfil_participantes
             return json_util.dumps(actividad)
         except PyMongoError as e:
             raise RuntimeError(f"Error de base de datos al consultar actividad: {e}")
@@ -94,34 +85,4 @@ class Actividad:
         except PyMongoError as e:
             raise RuntimeError(f"Error de base de datos: {e}")
 
-    def usuario_participa(id):
-        try:
-            actividades = mongo.db.actividades.find({"participantes": str(id)})
-            actividades_lista = list(actividades)
-            fecha_actual = datetime.now()
-            actividades_filtradas = [
-                actividad for actividad in actividades_lista
-                if actividad.get('fecha_actividad') and actividad['fecha_actividad'] >= fecha_actual
-            ]
-            for actividad in actividades_filtradas:
-                participantes_ids = actividad.get("participantes", [])
-                perfil_participantes = []
-                for pid in participantes_ids:
-                    participante = mongo.db.usuarios_genericos.find_one(
-                        {"_id": ObjectId(pid)},
-                        {"nombre": 1, "nombre_usuario": 1, "fecha_nac": 1, "preferencias": 1, "imagen_url": 1}
-                    )
-                    if participante:
-                        perfil_participantes.append({
-                            "nombre_usuario": participante.get("nombre_usuario", "Usuario no encontrado"),
-                            "imagen_url": participante.get("imagen_url", "/path/to/default/image.png"),
-                            "nombre": participante.get("nombre"),
-                            "fecha_nac": participante.get("fecha_nac"),
-                            "preferencias": participante.get("preferencias")
-                        })
-                actividad["perfil_participantes"] = perfil_participantes
-            actividades_ordenadas = sorted(actividades_filtradas, key=lambda x: x.get('fecha_actividad'))
-            resultado = json_util.dumps(actividades_ordenadas)
-            return resultado
-        except PyMongoError as e:
-            raise RuntimeError(f"Error de base de datos: {e}")
+

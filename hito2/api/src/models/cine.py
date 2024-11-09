@@ -2,29 +2,22 @@ from flask import jsonify
 from db import mongo
 from bson import json_util, ObjectId
 from pymongo.errors import PyMongoError
-from schemas.cine_schema import CinesSchema
-from marshmallow import ValidationError
 
 class Cine:
     def __init__(self, data: dict) -> None:
         self.cif = data.get("cif")
         self.nombre_cine = data.get("nombre_cine")
         self.id_administrador = data.get("id_administrador")
-        self.reviews = data.get("reviews", [])
+        self.peliculas = data.get("peliculas", [])
 
-    @staticmethod
-    def insertar_cine(data):
-        schema = CinesSchema()
+    def insertar_cine(self):
         try:
-            datos_validados = schema.load(data)
-            id = str(mongo.db.cines.insert_one(datos_validados).inserted_id)
-            return {"message": "Cine creado con éxito", "id": id}, 200
-        except ValidationError as e:
-            return {"error": e.messages}, 400
-        except Exception as e:
-            return {"error": f"Error en la base de datos al crear cine: {str(e)}"}, 500
-        
-    @staticmethod
+            data_insertar = self.__dict__
+            id = str(mongo.db.cines.insert_one(data_insertar).inserted_id)
+            return {"message": "Cine creado con éxito", "id": id}
+        except PyMongoError as e:
+            raise RuntimeError("Error en la base de datos al crear cine") from e
+
     def eliminar_cine(id):
         try:
             establecimiento_eliminar = mongo.db.cines.find_one({"_id": ObjectId(id)})
@@ -34,19 +27,17 @@ class Cine:
             resultado = mongo.db.cines.delete_one({"_id": ObjectId(id)})
             if resultado.deleted_count == 0:
                 raise RuntimeError("No se pudo eliminar el cine")
-            return {"message": "Cine " + id + " eliminado con éxito", "id_administrador": id_administrador}
+            return {"message": "Cine " + id + " eliminado con éxito"}
         except PyMongoError as e:
             raise RuntimeError(f"Error de base de datos al eliminar cine: {e}")
-        
-    @staticmethod
+
     def consultar_cines():
         try:
             cines = mongo.db.cines.find()
             return json_util.dumps(cines)
         except PyMongoError as e:
             raise RuntimeError(f"Error de base de datos al consultar los cines: {e}")
-        
-    @staticmethod
+
     def consultar_cine(id):
         try:
             cine = mongo.db.cines.find_one({"_id": ObjectId(id)})

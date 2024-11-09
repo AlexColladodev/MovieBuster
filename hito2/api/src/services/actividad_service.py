@@ -60,21 +60,11 @@ def consultar_actividad(id):
 @blueprint.route("/<id>", methods=["PUT"])
 def actualizar_actividad(id):
     data = request.json
+    schema = ActividadSchema()
     try:
-        resultado = Actividad.actualizar_actividad(id, data)
+        datos_validados = schema.load(data)
+        resultado = Actividad.actualizar_actividad(id, datos_validados)
         return jsonify(resultado), 200
-    except ValueError as e:
-        return jsonify({"error": str(e)}), 404
-    except RuntimeError as e:
-        return jsonify({"error": str(e)}), 500
-    except Exception as e:
-        return jsonify({"error": f"Error inesperado: {e}"}), 500
-
-@blueprint.route("/participa/<id>", methods=["GET"])
-def usuario_participa(id):
-    try:
-        resultado = Actividad.usuario_participa(id)
-        return Response(resultado, mimetype="application/json"), 200
     except ValueError as e:
         return jsonify({"error": str(e)}), 404
     except RuntimeError as e:

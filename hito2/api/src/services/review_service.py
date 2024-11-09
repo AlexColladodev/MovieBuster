@@ -1,35 +1,35 @@
 from flask import Blueprint, request, Response, jsonify
-from models.cine import Cine
-from schemas.cine_schema import CinesSchema
+from models.review import Review
+from schemas.review_schema import ReviewSchema
 from marshmallow import ValidationError
 
-blueprint = Blueprint("Cine", "cines", url_prefix="/cines")
+blueprint = Blueprint("Review", "reviews", url_prefix="/reviews")
 
 @blueprint.route("", methods=["POST"])
-def crear_cine():
+def crear_review():
     data = request.json
-    schema = CinesSchema()
-    
+    schema = ReviewSchema()
+
     try:
         datos_validados = schema.load(data)
-        cine = Cine(datos_validados)
-        resultado = cine.insertar_cine()
-        return jsonify(resultado), 200
+        review = Review(datos_validados)
+        resultado = review.insertar_review()
+        return resultado, 200
+    except RuntimeError as e:
+        return jsonify({"error": str(e)}), 500
     except ValidationError as e:
         errors = e.messages
         first_error_key = next(iter(errors))
         error_message = errors[first_error_key][0]
         return jsonify({"error": error_message}), 400
-    except RuntimeError as e:
-        return jsonify({"error": str(e)}), 500
     except Exception as e:
-        return jsonify({"error": f"Error inesperado: {e}"}), 500
+        return jsonify({"error": f"{e}"}), 500
 
 @blueprint.route("/<id>", methods=["DELETE"])
-def eliminar_cine(id):
+def eliminar_review(id):
     try:
-        respuesta = Cine.eliminar_cine(id)
-        return jsonify(respuesta), 200
+        respuesta = Review.eliminar_review(id)
+        return respuesta, 200
     except ValueError as e:
         return jsonify({"error": str(e)}), 404
     except RuntimeError as e:
@@ -38,23 +38,24 @@ def eliminar_cine(id):
         return jsonify({"error": f"Error inesperado: {e}"}), 500
 
 @blueprint.route("", methods=["GET"])
-def consultar_cines():
+def consultar_reviews():
     try:
-        respuesta = Cine.consultar_cines()
+        respuesta = Review.consultar_reviews()
         return Response(respuesta, mimetype="application/json"), 200
     except RuntimeError as e:
         return jsonify({"error": str(e)}), 500
     except Exception as e:
-        return jsonify({"error": f"Error inesperado al consultar cines: {e}"}), 500
+        return jsonify({"error": f"Error inesperado: {e}"}), 500
 
 @blueprint.route("/<id>", methods=["GET"])
-def consultar_cine(id):
+def consultar_review(id):
     try:
-        respuesta = Cine.consultar_cine(id)
+        respuesta = Review.consultar_review(id)
         return Response(respuesta, mimetype="application/json"), 200
     except ValueError as e:
         return jsonify({"error": str(e)}), 404
     except RuntimeError as e:
         return jsonify({"error": str(e)}), 500
     except Exception as e:
-        return jsonify({"error": f"Error inesperado al consultar cine: {e}"}), 500
+        return jsonify({"error": f"Error inesperado: {e}"}), 500
+

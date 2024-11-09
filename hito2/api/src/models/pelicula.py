@@ -2,10 +2,8 @@ from flask import jsonify
 from db import mongo
 from bson import ObjectId
 from datetime import datetime
-from schemas.pelicula_schema import PeliculaSchema
-from marshmallow import ValidationError
-from bson import json_util
 from pymongo.errors import PyMongoError
+from bson import json_util
 
 class Pelicula:
     def __init__(self, data: dict) -> None:
@@ -13,18 +11,26 @@ class Pelicula:
         self.descripcion = data.get("descripcion_pelicula")
         self.id_cine = data.get("id_cine")
         self.fecha_hora = data.get("fecha_hora")
+        self.genero = data.get("genero", [])
+        self.reviews = data.get("reviews", [])
 
-    @staticmethod
-    def insertar_pelicula(data):
-        schema = PeliculaSchema()
+    def insertar_pelicula(self):
         try:
-            datos_validados = schema.load(data)
-            id = str(mongo.db.peliculas.insert_one(datos_validados).inserted_id)
-            return {"message": "Película creada con éxito", "id": id}, 200
-        except ValidationError as e:
-            return {"error": e.messages}, 400
-        except Exception as e:
-            return {"error": f"Error en la base de datos al crear película: {str(e)}"}, 500
+            data_insertar = self.__dict__
+
+            cine = mongo.db.cines.find_one({"_id": ObjectId(self.id_cine)})
+            if not cine:
+                raise ValueError("Cine no encontrado")
+
+            id_pelicula = str(mongo.db.peliculas.insert_one(data_insertar).inserted_id)
+            mongo.db.cines.update_one(
+                {"_id": ObjectId(self.id_cine)},
+                {"$addToSet": {"peliculas": id_pelicula}}
+            )
+
+            return {"message": "Película creada con éxito", "id": id_pelicula}
+        except PyMongoError as e:
+            raise RuntimeError("Error en la base de datos al crear película") from e
 
     @staticmethod
     def eliminar_pelicula(id):
@@ -35,46 +41,37 @@ class Pelicula:
             resultado = mongo.db.peliculas.delete_one({"_id": ObjectId(id)})
             if resultado.deleted_count == 0:
                 raise RuntimeError("No se pudo eliminar la película")
-            return {"message": "Película eliminada con éxito"}, 200
-        except Exception as e:
-            return {"error": str(e)}, 500
+            return {"message": "Película eliminada con éxito"}
+        except PyMongoError as e:
+            raise RuntimeError(f"Error de base de datos al eliminar película: {e}")
 
     @staticmethod
     def consultar_peliculas():
         try:
             peliculas = mongo.db.peliculas.find()
             return json_util.dumps(peliculas)
-        except Exception as e:
-            return {"error": str(e)}, 500
+        except PyMongoError as e:
+            raise RuntimeError(f"Error de base de datos al consultar las películas: {e}")
 
     @staticmethod
     def consultar_pelicula(id):
         try:
-            
             if not ObjectId.is_valid(id):
                 raise ValueError("El ID proporcionado no es un ObjectId válido")
-            
-            
-            usuario = mongo.db.peliculas.find_one({"_id": ObjectId(id)})
-            if not usuario:
-                raise ValueError("Pelicula no encontrada")
-         
-            return json_util.dumps(usuario)
-        except ValueError as e:
-            return jsonify({"error": str(e)}), 404
+
+            pelicula = mongo.db.peliculas.find_one({"_id": ObjectId(id)})
+            if not pelicula:
+                raise ValueError("Película no encontrada")
+            return json_util.dumps(pelicula)
         except PyMongoError as e:
-            raise RuntimeError(f"Error en la base de datos al consultar la película: {e}")
+            raise RuntimeError(f"Error de base de datos al consultar la película: {e}")
 
     @staticmethod
     def actualizar_pelicula(id, data):
-        schema = PeliculaSchema()
         try:
-            datos_validados = schema.load(data)
-            resultado = mongo.db.peliculas.update_one({"_id": ObjectId(id)}, {"$set": datos_validados})
+            resultado = mongo.db.peliculas.update_one({"_id": ObjectId(id)}, {"$set": data})
             if resultado.modified_count == 0:
                 return {"message": "No se realizaron cambios o película no encontrada"}, 404
-            return {"message": "Película actualizada con éxito"}, 200
-        except ValidationError as e:
-            return {"error": e.messages}, 400
-        except Exception as e:
-            return {"error": str(e)}, 500
+            return {"message": "Película actualizada con éxito"}
+        except PyMongoError as e:
+            raise RuntimeError(f"Error de base de datos al actualizar película: {e}")
