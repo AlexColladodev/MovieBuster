@@ -62,9 +62,7 @@ class AdministradorCine:
             
             
             return json_util.dumps(administrador)
-
-        except ValueError as e:
-            return jsonify({"error": str(e)}), 404
+        
         except PyMongoError as e:
             raise RuntimeError(f"Error en la base de datos al consultar al administrador: {e}")
 

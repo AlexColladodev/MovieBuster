@@ -64,6 +64,14 @@ def test_consultar_administrador_encontrado(mocker):
 
     assert response == json_util.dumps(administrador_data)
 
+def test_consultar_administrador_no_encontrado(mocker):
+    mock_db = mocker.patch('models.administrador_cine.mongo.db')
+    mock_administradores = mock_db.administradores_cines
+
+    mock_administradores.find_one.return_value = None
+
+    with pytest.raises(ValueError):
+        AdministradorCine.consultar_administrador("id_incorrecto")
 
 
 def test_actualizar_administrador_sin_cambios(mocker):
