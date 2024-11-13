@@ -29,4 +29,5 @@ jobs:
         run: make -C hito2/api install  
 
       - name: Run tests
-        run: make -C hito2/api test  
+        working-directory: hito2/api/src
+        run: pytest --maxfail=1 --disable-warnings -v
