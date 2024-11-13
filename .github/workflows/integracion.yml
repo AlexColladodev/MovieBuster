@@ -8,7 +8,7 @@ on:
 
 jobs:
   test:
-    runs-on: ubuntu-latest 
+    runs-on: ubuntu-latest
 
     steps:
       - name: Checkout code
@@ -17,17 +17,16 @@ jobs:
       - name: Set up Python
         uses: actions/setup-python@v2
         with:
-          python-version: '3.12.3'  
+          python-version: '3.12.3'
 
       - name: Upgrade pip
         run: python -m pip install --upgrade pip
 
-      - name: Set PYTHONPATH
-        run: echo "PYTHONPATH=$(pwd)/src" >> $GITHUB_ENV
-
       - name: Install dependencies
-        run: make -C hito2/api install  
+        run: make -C hito2/api install
 
-      - name: Run tests
-        working-directory: hito2/api/src
-        run: pytest --maxfail=1 --disable-warnings -v
+      - name: Set PYTHONPATH and Run tests
+        run: |
+          export PYTHONPATH="${PYTHONPATH}:$(pwd)/src"
+          pytest --maxfail=1 --disable-warnings -v
+        working-directory: hito2/api
