@@ -18,6 +18,7 @@ class Cine:
         except PyMongoError as e:
             raise RuntimeError("Error en la base de datos al crear cine") from e
 
+    @staticmethod
     def eliminar_cine(id):
         try:
             establecimiento_eliminar = mongo.db.cines.find_one({"_id": ObjectId(id)})
@@ -31,6 +32,7 @@ class Cine:
         except PyMongoError as e:
             raise RuntimeError(f"Error de base de datos al eliminar cine: {e}")
 
+    @staticmethod
     def consultar_cines():
         try:
             cines = mongo.db.cines.find()
@@ -38,6 +40,7 @@ class Cine:
         except PyMongoError as e:
             raise RuntimeError(f"Error de base de datos al consultar los cines: {e}")
 
+    @staticmethod
     def consultar_cine(id):
         try:
             cine = mongo.db.cines.find_one({"_id": ObjectId(id)})

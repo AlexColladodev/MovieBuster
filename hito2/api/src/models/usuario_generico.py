@@ -92,7 +92,7 @@ class UsuarioGenerico:
             resultado = mongo.db.usuarios_genericos.update_one({"_id": ObjectId(id)}, {"$set": data})
 
             if resultado.modified_count == 0:
-                return {"message": "No se realizaron cambios o usuario no encontrado"}
+                return {"message": "No se realizaron cambios"}
 
             return {"message": "Usuario actualizado con éxito"}
         
@@ -119,10 +119,23 @@ class UsuarioGenerico:
     @staticmethod
     def invita_actividad(id_usuario, id_actividad):
         try:
-            mongo.db.actividades.update_one(
+            actividad = mongo.db.actividades.find_one({"_id": ObjectId(id_actividad)})
+            if not actividad:
+                raise ValueError("La actividad especificada no existe")
+
+            usuario = mongo.db.usuarios_genericos.find_one({"_id": ObjectId(id_usuario)})
+            if not usuario:
+                raise ValueError("El usuario especificado no existe")
+
+            resultado = mongo.db.actividades.update_one(
                 {"_id": ObjectId(id_actividad)},
                 {"$addToSet": {"participantes": id_usuario}}
             )
-            return {"message": "Actividad añadida con éxito al usuario"}
+
+            if resultado.modified_count > 0:
+                return {"message": "Actividad añadida con éxito al usuario"}
+            else:
+                raise ValueError("No se pudo añadir la actividad al usuario")
+
         except PyMongoError as e:
             raise RuntimeError(f"Error en la base de datos al asociar usuario-actividad: {e}")
