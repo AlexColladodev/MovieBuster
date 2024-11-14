@@ -94,10 +94,10 @@ Para la gestión de tareas en el proyecto, se ha utilizado un archivo Makefile, 
 
 ```makefile
 install:
-    pip install -r requirements.txt
+	pip install -r requirements.txt
 
 test:
-    PYTHONPATH=src pytest --maxfail=1 --disable-warnings -v
+	set PYTHONPATH=src && pytest --maxfail=1 --disable-warnings -v
 ```
 
 
