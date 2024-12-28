@@ -14,3 +14,28 @@
 127.0.0.1 - - [29/Nov/2024 03:48:23] "GET /actividades HTTP/1.1" 200 -
 127.0.0.1 - - [29/Nov/2024 03:48:24] "GET /actividades HTTP/1.1" 200 -
 127.0.0.1 - - [29/Nov/2024 03:48:24] "GET /actividades HTTP/1.1" 200 -
+[31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://172.21.58.233:5000
+[33mPress CTRL+C to quit[0m
+127.0.0.1 - - [28/Dec/2024 17:46:04] "[35m[1mPUT /usuario_generico/6734cec1687778e880f2d499 HTTP/1.1[0m" 500 -
+[31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://172.21.58.233:5000
+[33mPress CTRL+C to quit[0m
+127.0.0.1 - - [28/Dec/2024 17:46:53] "[35m[1mPUT /usuario_generico/6734cec1687778e880f2d499 HTTP/1.1[0m" 500 -
+127.0.0.1 - - [28/Dec/2024 17:47:16] "[35m[1mGET /usuario_generico/6734cec1687778e880f2d499 HTTP/1.1[0m" 500 -
+[31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://172.21.58.233:5000
+[33mPress CTRL+C to quit[0m
+127.0.0.1 - - [28/Dec/2024 17:52:20] "[35m[1mGET /usuario_generico HTTP/1.1[0m" 500 -
+[31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://192.168.94.53:5000
+[33mPress CTRL+C to quit[0m
+127.0.0.1 - - [28/Dec/2024 17:53:00] "GET /usuario_generico HTTP/1.1" 200 -

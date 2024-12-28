@@ -1,0 +1,27 @@
+version: "3.8"
+
+services:
+  moviebuster-api:
+    build:
+      context: ./api
+    ports:
+      - "5000:5000"
+    environment:
+      - MONGO_URI=mongodb://mongo:27017/MovieBuster
+      - JWT_SECRET_KEY=Ap?&/u]rk0b5=:+E 
+    volumes:
+      - ./api/src:/app/src 
+    depends_on:
+      - mongo
+    command: ["python", "src/app.py"]
+
+  mongo:
+    image: mongo:6.0  
+    container_name: moviebuster-mongo
+    ports:
+      - "27017:27017"  
+    volumes:
+      - mongo_data:/data/db 
+
+volumes:
+  mongo_data:  
