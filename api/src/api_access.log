@@ -1,0 +1,16 @@
+[31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://192.168.0.15:5000
+[33mPress CTRL+C to quit[0m
+127.0.0.1 - - [29/Nov/2024 03:47:27] "GET /actividades/672fe01e1c4f4f114d6bc9cb HTTP/1.1" 200 -
+127.0.0.1 - - [29/Nov/2024 03:47:28] "GET /actividades/672fe01e1c4f4f114d6bc9cb HTTP/1.1" 200 -
+127.0.0.1 - - [29/Nov/2024 03:47:29] "GET /actividades/672fe01e1c4f4f114d6bc9cb HTTP/1.1" 200 -
+[31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://192.168.0.15:5000
+[33mPress CTRL+C to quit[0m
+127.0.0.1 - - [29/Nov/2024 03:48:23] "GET /actividades HTTP/1.1" 200 -
+127.0.0.1 - - [29/Nov/2024 03:48:24] "GET /actividades HTTP/1.1" 200 -
+127.0.0.1 - - [29/Nov/2024 03:48:24] "GET /actividades HTTP/1.1" 200 -
