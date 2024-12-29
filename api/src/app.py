@@ -8,9 +8,10 @@ from services import usuario_generico_service, administrador_cine_service, cine_
 from flask_swagger_ui import get_swaggerui_blueprint
 import logging
 from logging.handlers import RotatingFileHandler
+import os
 
 app = Flask(__name__)
-app.config["MONGO_URI"] = "mongodb://localhost:27017/MovieBuster"
+app.config["MONGO_URI"] = os.getenv("MONGO_URI", "mongodb://mongo:27017/MovieBuster")
 app.config["JWT_SECRET_KEY"] = "Ap?&/u]rk0b5=:+E"
 
 jwt = JWTManager(app)
