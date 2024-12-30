@@ -38,7 +38,7 @@ jobs:
         run: docker-compose -f docker-compose.yml build
 
       - name: Start services
-        run: docker-compose -f docker-compose.yml up
+        run: docker-compose -f docker-compose.yml up -d
 
       - name: Run tests in moviebuster-tests container
         run: docker-compose run --rm moviebuster-tests
