@@ -10,6 +10,12 @@ jobs:
   test:
     runs-on: ubuntu-latest
 
+    services:
+      mongo:
+        image: mongo:6.0
+        ports:
+          - 27017:27017
+
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
@@ -25,8 +31,14 @@ jobs:
       - name: Install dependencies
         run: make -C api install
 
-      - name: Set PYTHONPATH and Run tests
-        run: |
-          export PYTHONPATH="${PYTHONPATH}:$(pwd)/src"
-          pytest --maxfail=1 --disable-warnings -v
-        working-directory: api
+      - name: Install Docker Compose
+        run: sudo apt-get install docker-compose -y
+
+      - name: Build containers
+        run: docker-compose -f docker-compose.yml build
+
+      - name: Start services
+        run: docker-compose -f docker-compose.yml up -d mongo
+
+      - name: Run tests in moviebuster-tests container
+        run: docker-compose run --rm moviebuster-tests
