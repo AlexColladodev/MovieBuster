@@ -40,10 +40,11 @@ jobs:
       - name: Build containers
         run: docker-compose -f docker-compose.yml build
 
-      - name: Build and Push Docker image
-        run: |
-          docker build -t ghcr.io/${{ github.repository }}/moviebuster-api:latest ./api
-          docker push ghcr.io/${{ github.repository }}/moviebuster-api:latest
+      - name: Build Docker image
+        run: docker build -t ghcr.io/alexcolladodev/moviebuster/moviebuster-api:latest ./api
+
+      - name: Push Docker image
+        run: docker push ghcr.io/alexcolladodev/moviebuster/moviebuster-api:latest
 
       - name: Start services
         run: docker-compose -f docker-compose.yml up -d
