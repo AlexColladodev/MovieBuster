@@ -15,6 +15,19 @@ services:
       - mongo
     command: ["python", "src/app.py"]
 
+  moviebuster-tests:
+    build:
+      context: ./api
+    environment:
+      - MONGO_URI=mongodb://mongo:27017/MovieBuster
+      - JWT_SECRET_KEY=Ap?&/u]rk0b5=:+E
+      - PYTHONPATH=/app/src
+    volumes:
+      - ./api/src:/app/src
+    depends_on:
+      - mongo
+    command: ["pytest", "src/tests/"]
+
   mongo:
     image: mongo:6.0  
     container_name: moviebuster-mongo
@@ -24,4 +37,4 @@ services:
       - mongo_data:/data/db 
 
 volumes:
-  mongo_data:  
+  mongo_data: 
