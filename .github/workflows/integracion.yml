@@ -42,3 +42,9 @@ jobs:
 
       - name: Run tests in moviebuster-tests container
         run: docker-compose run --rm moviebuster-tests
+
+      - name: Set PYTHONPATH and Run tests
+        run: |
+          export PYTHONPATH="${PYTHONPATH}:$(pwd)/src"
+          pytest --maxfail=1 --disable-warnings -v
+        working-directory: api
