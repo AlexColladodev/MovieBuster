@@ -4,6 +4,9 @@ El código fuente del contenedor de la API se encuentra disponible en el siguien
 
 [https://github.com/AlexColladodev/MovieBuster/tree/main/api](https://github.com/AlexColladodev/MovieBuster/tree/main/api)
 
+Se puede consultar el archivo `docker-compose.yml` aquí:  
+[https://github.com/AlexColladodev/MovieBuster/blob/main/docker-compose.yml](https://github.com/AlexColladodev/MovieBuster/blob/main/docker-compose.yml)
+
 ## 🐋 Docker Desktop 🐋
 
 Docker es una plataforma de contenedorización que permite a los desarrolladores empaquetar aplicaciones y sus dependencias en contenedores ligeros y portátiles. Estos contenedores garantizan que las aplicaciones se ejecuten de manera uniforme en diferentes entornos, ya sea en desarrollo, pruebas o producción. Docker Desktop es una herramienta que simplifica la instalación y el uso de Docker en sistemas operativos como Windows y macOS, ofreciendo una interfaz gráfica y soporte completo para la gestión de imágenes, contenedores, redes y volúmenes.
