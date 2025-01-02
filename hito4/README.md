@@ -164,3 +164,8 @@ El último paso del workflow utiliza los tests desarrollados en hitos anteriores
 ![image](https://github.com/user-attachments/assets/751bf9e4-5f3d-49f5-ac19-8a675394cb7e)
 
 ![image](https://github.com/user-attachments/assets/954ae07c-5e9d-4421-9707-54f7db3229ae)
+
+![image](https://github.com/user-attachments/assets/93a3bbc4-eb97-4f4e-8192-ce0394cd2af5)
+
+![image](https://github.com/user-attachments/assets/1a89c5ac-a93f-4ebd-964c-d53eddebe173)
+
