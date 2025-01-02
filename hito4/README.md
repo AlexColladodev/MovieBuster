@@ -157,3 +157,10 @@ El último paso del workflow utiliza los tests desarrollados en hitos anteriores
     run: docker-compose run --rm moviebuster-tests
   ```
 
+## 📸 Capturas 📸
+
+![image](https://github.com/user-attachments/assets/f2954a23-25fd-4a17-a41c-f0294655cc7e)
+
+![image](https://github.com/user-attachments/assets/751bf9e4-5f3d-49f5-ac19-8a675394cb7e)
+
+![image](https://github.com/user-attachments/assets/954ae07c-5e9d-4421-9707-54f7db3229ae)
