@@ -84,3 +84,76 @@ El contenedor `moviebuster-api` se comunica directamente con el contenedor de Mo
 
 - **`command`:**
   - Ejecuta el comando `pytest src/tests/` al iniciar el contenedor.
+
+## 🐳 Dockerfile 🐳
+
+El Dockerfile es el encargado de definir cómo se construye la imagen Docker para ejecutar la API. 
+
+Para la base de la imagen, se utiliza python:3.12, una imagen oficial de Python que proporciona un entorno listo para ejecutar el código de la API. Esta elección asegura compatibilidad con las dependencias y las funcionalidades requeridas.
+
+El directorio de trabajo dentro del contenedor se establece como /app, donde se organizan todos los archivos necesarios para ejecutar la aplicación. Primero, se copia el archivo requirements.txt al contenedor, lo que permite instalar las dependencias antes de transferir el código fuente. Si no hay cambios en las dependencias, la instalación no se repite.
+
+Las dependencias de la API se instalan con pip install utilizando la opción --no-cache-dir. Esto elimina cualquier archivo temporal creado durante la instalación. Luego, se copia el directorio src/ al contenedor, asegurando que todo el código fuente esté disponible para su ejecución.
+
+El puerto 5000 se expone para permitir que la API sea accesible desde otros servicios o usuarios. Este puerto es el predeterminado para aplicaciones Flask.
+
+El Dockerfile especifica que, al iniciarse el contenedor, se ejecutará el comando python src/app.py. Esto asegura que la API esté lista para recibir solicitudes tan pronto como el contenedor se active.
+
+## 📦 Github Package 📦
+
+El contenedor de la API se encuentra disponible en GitHub Packages.
+
+- **URL del contenedor:** [ghcr.io/alexcolladodev/moviebuster/moviebuster-api](https://ghcr.io/alexcolladodev/moviebuster/moviebuster-api)
+
+![image](https://github.com/user-attachments/assets/a4d72051-cf96-46d2-8351-b5a6241674e9)
+
+Cada vez que se realiza un cambio en la rama principal (`main`) o se envía un Pull Request hacia esta, el contenedor de la API se actualiza automáticamente en GitHub Packages. Este proceso incluye:
+
+1. **Construcción de la nueva imagen:** 
+   El workflow de GitHub Actions define los pasos necesarios para construir el contenedor utilizando el archivo `Dockerfile`.
+
+   ```yaml
+   name: Build Docker image
+   run: docker build -t ghcr.io/alexcolladodev/moviebuster/moviebuster-api:latest ./api
+   ```
+
+2. **Subida de la nueva imagen a GitHub Packages:**
+   Una vez construida, la imagen se sube al registro de contenedores de GitHub Packages en la dirección:  
+   [ghcr.io/alexcolladodev/moviebuster/moviebuster-api](https://ghcr.io/alexcolladodev/moviebuster/moviebuster-api).
+
+      ```yaml
+      name: Push Docker image
+      run: docker push ghcr.io/alexcolladodev/moviebuster/moviebuster-api:latest
+      ```
+## ✅ Validación funcionamiento clúster contenedores ✅
+
+En el workflow de integración continua, se han definido pasos específicos para la construcción y el lanzamiento del clúster de contenedores, así como para la subida del contenedor principal a GitHub Packages. Estos pasos garantizan que el sistema completo pueda desplegarse y validarse de manera automática cada vez que se realizan cambios en el código.
+
+El proceso comienza con la construcción de la imagen Docker de la API, utilizando el siguiente paso en el workflow:
+
+  ```yaml
+    name: Build Docker image
+    run: docker build -t ghcr.io/alexcolladodev/moviebuster/moviebuster-api:latest ./api
+  ```
+
+Una vez construida, la imagen se sube a GitHub Packages, lo que asegura que esté disponible en un repositorio central para su uso en otros entornos.
+
+  ```yaml
+    name: Push Docker image
+    run: docker push ghcr.io/alexcolladodev/moviebuster/moviebuster-api:latest
+  ```
+
+Tras la subida, se procede a lanzar el clúster de contenedores definido en el archivo docker-compose.yml. Este lanzamiento se ejecuta en segundo plano utilizando el flag -d en el comando docker-compose up. Esto es importante, ya que evita que los contenedores se queden bloqueando la ejecución del workflow, permitiendo que los pasos siguientes se ejecuten de manera fluida.
+
+  ```yaml
+    name: Start services
+    run: docker-compose -f docker-compose.yml up -d
+  ```
+
+El último paso del workflow utiliza los tests desarrollados en hitos anteriores. Estos tests se ejecutan desde un contenedor dedicado llamado moviebuster-tests, que se encarga de validar que todos los componentes del clúster están funcionando correctamente.
+
+  ```yaml
+    name: Run tests in moviebuster-tests container
+    run: docker-compose run --rm moviebuster-tests
+  ```
+
