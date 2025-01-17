@@ -7,5 +7,5 @@ WORKDIR /data/db
 # Exponer el puerto de MongoDB
 EXPOSE 27017
 
-# Comando para iniciar MongoDB
-CMD ["mongod", "--bind_ip_all"]
+# Comando para iniciar MongoDB sin opciones de SSL
+CMD ["mongod", "--bind_ip_all", "--noauth"]
