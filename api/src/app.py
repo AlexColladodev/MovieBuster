@@ -59,7 +59,7 @@ app.register_blueprint(swaggerui_blueprint, url_prefix=SWAGGER_URL)
 
 @app.route('/nombre', methods=['GET'])
 def obtener_nombre_usuario():
-    return jsonify({"nombre_usuario": "nombre"}), 200
+    return jsonify({"nombre_usuario": "nombre_nuevo"}), 200
 
 if __name__ == "__main__":
     app.run(host='0.0.0.0', port=5000)
