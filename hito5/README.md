@@ -55,6 +55,16 @@ Debido a problemas al intentar desplegar la base de datos mediante un contenedor
 
 Con esta URI configurada en la variable de entorno `MONGO_URI`, la aplicación puede comunicarse correctamente con la base de datos.
 
+## Descripción de la configuración para el despliegue automático
+
+Como se ha mencionado, Render se conecta directamente con GitHub. Existe la opción de configurar el servicio de manera que, cada vez que se realice un push o un cambio en la rama `main` (o en cualquier rama seleccionada), se realice automáticamente un nuevo despliegue con el código actualizado.
+
+![image](https://github.com/user-attachments/assets/472fb797-d219-4e28-973e-8445e806651b)
+
+Se puede observar que luego de haber hecho un cambio en el commit el Log del despliegue me aparece:
+
+![image](https://github.com/user-attachments/assets/38011d13-ac91-45e5-96aa-75104c40890f)
+
 ## Funcionamiento Correcto
 
 Se prueban algunos endpoints para la configuración correcta del despliegue tanto de la API como de la base de datos. Se prueba mediante POSTMAN los siguientes endpoints:
