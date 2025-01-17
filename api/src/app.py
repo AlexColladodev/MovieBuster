@@ -9,14 +9,22 @@ from flask_swagger_ui import get_swaggerui_blueprint
 import logging
 from logging.handlers import RotatingFileHandler
 import os
+from pymongo.mongo_client import MongoClient
+from pymongo.server_api import ServerApi
 
 app = Flask(__name__)
-app.config["MONGO_URI"] = os.getenv("MONGO_URI", "mongodb+srv://AlexColladodev:Alex-25-MovieBuster@moviebuster.lezf0.mongodb.net/?retryWrites=true&w=majority&appName=MovieBuster")
-
 app.config["JWT_SECRET_KEY"] = "Ap?&/u]rk0b5=:+E"
 
 jwt = JWTManager(app)
 CORS(app)
+
+# Set up MongoDB connection
+mongo_uri = os.getenv(
+    "MONGO_URI",
+    "mongodb+srv://AlexColladodev:Alex-25-MovieBuster@moviebuster.lezf0.mongodb.net/?retryWrites=true&w=majority&appName=MovieBuster"
+)
+client = MongoClient(mongo_uri, server_api=ServerApi('1'))
+db = client["MovieBuster"]  # Use the correct database name
 
 init_mongo(app)
 
