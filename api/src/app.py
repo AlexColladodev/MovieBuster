@@ -11,6 +11,8 @@ from logging.handlers import RotatingFileHandler
 import os
 
 app = Flask(__name__)
+
+#Colocar MONGO_URI como variable de entorno en render
 app.config["MONGO_URI"] = os.getenv("MONGO_URI", "mongodb+srv://AlexColladodev:Alex-25-MovieBuster@moviebuster.lezf0.mongodb.net/MovieBuster?retryWrites=true&w=majority&appName=MovieBuster")
 app.config["JWT_SECRET_KEY"] = "Ap?&/u]rk0b5=:+E"
 
