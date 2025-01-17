@@ -14,6 +14,7 @@ from pymongo.server_api import ServerApi
 
 app = Flask(__name__)
 app.config["JWT_SECRET_KEY"] = "Ap?&/u]rk0b5=:+E"
+app.config["MONGO_URI"] = os.getenv("MONGO_URI", "mongodb+srv://AlexColladodev:Alex-25-MovieBuster@moviebuster.lezf0.mongodb.net/?retryWrites=true&w=majority&appName=MovieBuster")
 
 jwt = JWTManager(app)
 CORS(app)
