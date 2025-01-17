@@ -7,7 +7,7 @@ services:
     ports:
       - "5000:5000"
     environment:
-      - MONGO_URI=mongodb+srv://AlexColladodev:Alex-25-MovieBuster@moviebuster.lezf0.mongodb.net/?retryWrites=true&w=majority&appName=MovieBuster
+      - MONGO_URI=mongodb+srv://AlexColladodev:Alex-25-MovieBuster@moviebuster.lezf0.mongodb.net/MovieBuster?retryWrites=true&w=majority&appName=MovieBuster
       - JWT_SECRET_KEY=Ap?&/u]rk0b5=:+E 
     volumes:
       - ./api/src:/app/src 
@@ -19,7 +19,7 @@ services:
     build:
       context: ./api
     environment:
-      - MONGO_URI=mongodb+srv://AlexColladodev:Alex-25-MovieBuster@moviebuster.lezf0.mongodb.net/?retryWrites=true&w=majority&appName=MovieBuster
+      - MONGO_URI=mongodb+srv://AlexColladodev:Alex-25-MovieBuster@moviebuster.lezf0.mongodb.net/MovieBuster?retryWrites=true&w=majority&appName=MovieBuster
       - JWT_SECRET_KEY=Ap?&/u]rk0b5=:+E
       - PYTHONPATH=/app/src
     volumes:
